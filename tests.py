@@ -4,9 +4,32 @@ from unittest.mock import patch
 import solution_1
 import solution_2
 import solution_3
+import solution_3_iterative
 
 
 class TestSolutions(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        # Create the Tree nodes
+        cls.n1 = solution_3_iterative.Node(1)
+        cls.n2 = solution_3_iterative.Node(2)
+        cls.n3 = solution_3_iterative.Node(3)
+        cls.n4 = solution_3_iterative.Node(4)
+        cls.n5 = solution_3_iterative.Node(5)
+        cls.n6 = solution_3_iterative.Node(6)
+        cls.n7 = solution_3_iterative.Node(7)
+        cls.n8 = solution_3_iterative.Node(8)
+        cls.n9 = solution_3_iterative.Node(9)
+        # connect the nodes
+        cls.n2.parent = cls.n1
+        cls.n3.parent = cls.n1
+        cls.n4.parent = cls.n2
+        cls.n5.parent = cls.n2
+        cls.n6.parent = cls.n3
+        cls.n7.parent = cls.n3
+        cls.n8.parent = cls.n4
+        cls.n9.parent = cls.n4
 
     # =====================================================================================
     #                       Testing solution to the question 1
@@ -90,6 +113,20 @@ class TestSolutions(unittest.TestCase):
         self.assertEqual(solution_3.lca(n4, n3), 1)
         self.assertEqual(solution_3.lca(n4, n1), 1)
         self.assertEqual(solution_3.lca(404, n1), None)
+
+    # =====================================================================================
+    #                       Testing Iterative solution to the question 3
+    # =====================================================================================
+    def test_solution_3_iterative(self):
+        self.assertEqual(solution_3_iterative.lca(self.n6, self.n7), 3)
+        self.assertEqual(solution_3_iterative.lca(self.n3, self.n7), 3)
+        self.assertEqual(solution_3_iterative.lca(self.n2, self.n8), 2)
+        self.assertEqual(solution_3_iterative.lca(self.n4, self.n5), 2)
+        self.assertEqual(solution_3_iterative.lca(self.n7, self.n8), 1)
+        self.assertEqual(solution_3_iterative.lca(self.n4, self.n6), 1)
+        self.assertEqual(solution_3_iterative.lca(self.n4, self.n3), 1)
+        self.assertEqual(solution_3_iterative.lca(self.n4, self.n1), 1)
+        self.assertEqual(solution_3_iterative.lca(404, self.n1), None)
 
 
 if __name__ == '__main__':
